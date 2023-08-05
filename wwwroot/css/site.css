@@ -1,0 +1,109 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/* styles.css */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .table th,
+    .table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #550964;
+        color: white;
+    }
+
+    .table tr:hover {
+        background-color: #c18fcb;
+    }
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+    .actions a {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        color: #fff;
+    }
+
+        .actions a.edit {
+            background-color: #007bff;
+        }
+
+        .actions a.details {
+            background-color: #28a745;
+        }
+
+        .actions a.delete {
+            background-color: #dc3545;
+        }
+
+
+
+.form-floating {
+    border-radius: 50px;
+}
+
+#welcome-note1 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 80px;
+    color: #550964;
+}
+
+
+#welcome-note2 {
+    font-family: 'Tektur', cursive;
+    color: #550964;
+    font-size: 120px;
+}
+
+#contact-form {
+    margin: 50px;
+    padding: 40px;
+}
+
+.btn {
+    background-color: #550964;
+    color: white;
+}
+
+#login-submit {
+    background-color: #550964;
+    color: white;
+}
+
+.nav-pills > li > a {
+    color: black !important;
+}
+
+
+    .nav-pills > li > a.active {
+        background-color: #550964 !important;
+        color: white !important;
+    }
