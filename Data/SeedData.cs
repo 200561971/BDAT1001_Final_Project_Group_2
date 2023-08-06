@@ -2,34 +2,42 @@
 using ContactManager.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
-// dotnet aspnet-codegenerator razorpage -m Contact -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
 namespace ContactManager.Data
 {
+    // This class defines a SeedData class responsible for seeding the database with initial data.
     public static class SeedData
     {
-
+        // The Initialize method is used to seed the database with test data.
+        // It creates and assigns roles to users and then seeds the Contact table with sample contacts.
         public static async Task Initialize(IServiceProvider serviceProvider, string testAdminPw, string testManagerPw)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                // For sample purposes seed both with the same password.
-                // Password is set with the following:
+                // For sample purposes, seed both admin and manager users with the same password.
+                // The password is set using the following:
                 // dotnet user-secrets set SeedUserPW <pw>
-                // The admin user can do anything
 
+                // Ensure that the admin user exists and assign the ContactAdministratorsRole to it.
                 var adminID = await EnsureUser(serviceProvider, testAdminPw, "admin@bdat.com");
                 await EnsureRole(serviceProvider, adminID, Constants.ContactAdministratorsRole);
 
-                // allowed user can create and edit contacts that they create
+                // Ensure that the manager user exists and assign the ContactManagersRole to it.
                 var managerID = await EnsureUser(serviceProvider, testManagerPw, "manager@bdat.com");
                 await EnsureRole(serviceProvider, managerID, Constants.ContactManagersRole);
 
+                // Seed the Contact table with sample data if it's empty.
                 SeedDB(context, adminID);
             }
         }
 
+        // This method ensures that a user with the specified username exists.
+        // If the user doesn't exist, it creates a new user with the given password.
+        // It returns the user ID.
         private static async Task<string> EnsureUser(IServiceProvider serviceProvider,
                                                     string testUserPw, string UserName)
         {
@@ -37,8 +45,7 @@ namespace ContactManager.Data
 
             var user = await userManager.FindByNameAsync(UserName);
 
-
-
+            // If the user doesn't exist, create a new user with the provided username and password.
             if (user == null)
             {
                 user = new IdentityUser
@@ -50,14 +57,19 @@ namespace ContactManager.Data
                 await userManager.CreateAsync(user, testUserPw);
             }
 
+            // If the user is still null, it means that the password provided may not be strong enough.
             if (user == null)
             {
                 throw new Exception("The password is probably not strong enough!");
             }
 
+            // Return the user ID.
             return user.Id;
         }
 
+        // This method ensures that a role with the specified name exists.
+        // If the role doesn't exist, it creates a new role with the given name and assigns it to the specified user.
+        // It returns the IdentityResult of the role creation.
         private static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider,
                                                                       string uid, string role)
         {
@@ -71,28 +83,28 @@ namespace ContactManager.Data
             IdentityResult IR;
             if (!await roleManager.RoleExistsAsync(role))
             {
+                // Create a new role if it doesn't exist.
                 IR = await roleManager.CreateAsync(new IdentityRole(role));
             }
 
             var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
 
-            //if (userManager == null)
-            //{
-            //    throw new Exception("userManager is null");
-            //}
-
+            // Get the user based on the user ID.
             var user = await userManager.FindByIdAsync(uid);
 
+            // If the user is null, it means that the password provided may not be strong enough.
             if (user == null)
             {
                 throw new Exception("The testUserPw password was probably not strong enough!");
             }
 
+            // Assign the user to the specified role.
             IR = await userManager.AddToRoleAsync(user, role);
 
             return IR;
         }
 
+        // This method seeds the Contact table with sample contact data if it's empty.
         public static void SeedDB(ApplicationDbContext context, string adminID)
         {
             if (context.Contact.Any())
@@ -100,8 +112,8 @@ namespace ContactManager.Data
                 return;   // DB has been seeded
             }
 
+            // Add sample contact data to the Contact table.
             context.Contact.AddRange(
-
                 new Contact
                 {
                     Name = "Debra Garcia",
@@ -113,7 +125,6 @@ namespace ContactManager.Data
                     Status = ContactStatus.Approved,
                     OwnerID = adminID
                 },
-
                 new Contact
                 {
                     Name = "Thorsten Weinrich",
@@ -157,7 +168,9 @@ namespace ContactManager.Data
                     Email = "diliana@example.com",
                     OwnerID = adminID
                 }
-             );
+            );
+
+            // Save changes to the database.
             context.SaveChanges();
         }
     }

@@ -1,17 +1,21 @@
 ﻿<Properties StartupConfiguration="{47763A58-1EB5-48E6-AD5A-51249774F54A}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ContactManager PreferredExecutionTarget="/Applications/Firefox.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Pages/Shared/_Layout.cshtml">
     <Files>
-      <File FileName="Pages/Privacy.cshtml" Line="1" Column="1" />
-      <File FileName="Pages/Shared/_Layout.cshtml" Line="98" Column="16" />
+      <File FileName="Pages/Privacy.cshtml" />
+      <File FileName="Pages/Shared/_Layout.cshtml" Line="29" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="ContactManager" expanded="True">
-            <Node name="ContactManager" expanded="True">
+          <Node name="ContactManager">
+            <Node name="ContactManager">
               <Node name="Areas" expanded="True">
                 <Node name="Identity" expanded="True">
                   <Node name="Pages" expanded="True">
@@ -32,10 +36,9 @@
                   <Node name="Details.cshtml" expanded="True" />
                   <Node name="Index.cshtml" expanded="True" />
                 </Node>
-                <Node name="Shared" expanded="True">
-                  <Node name="_Layout.cshtml" selected="True" />
-                </Node>
+                <Node name="Shared" expanded="True" />
               </Node>
+              <Node name="wwwroot" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
@@ -43,8 +46,4 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.ContactManager PreferredExecutionTarget="/Applications/Firefox.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
 </Properties>
